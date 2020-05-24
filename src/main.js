@@ -5,8 +5,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import App from './App'
 import router from './router'
-import { from } from '_array-flatten@2.1.2@array-flatten';
-
+import { initMenu } from './utils/utils'
 import { postRequest } from './utils/api'
 import { uploadFileRequest } from './utils/api'
 import { putRequest } from './utils/api'
@@ -24,6 +23,32 @@ Vue.prototype.getRequest = getRequest;
 
 Vue.use(ElementUI);
 Vue.config.productionTip = false
+
+
+router.beforeEach((to, from, next) => {
+
+  console.log(to);
+
+  if (to.name == "Login") {
+    next()
+    return
+  }
+
+  var name = store.state.user.name;
+  if (name == '未登录') {
+    if (to.meta.requireAuth || to.name == null) {
+      next({ path: '/', query: { redirect: to.path } })
+    } else {
+      next();
+    }
+  } else {
+    initMenu(router, store);
+    next()
+  }
+
+
+})
+
 
 /* eslint-disable no-new */
 new Vue({

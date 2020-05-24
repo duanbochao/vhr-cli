@@ -6,15 +6,12 @@
         <el-form-item>
           <h2>系统登录</h2>
         </el-form-item>
-
         <el-form-item prop="username">
           <el-input v-model="form.username"></el-input>
         </el-form-item>
-
         <el-form-item prop="password">
           <el-input v-model="form.password" show-password></el-input>
         </el-form-item>
-
         <el-form-item>
           <el-checkbox v-model="checked">记住密码</el-checkbox>
         </el-form-item>
@@ -55,9 +52,15 @@ export default {
         if (valid) {
 
           this.loading = true
-          const self = this;
+
           this.postRequest("/doLogin", this.form).then(resp => {
+            const self = this;
             this.loading = false
+            if (resp.status === 200) {
+              console.log("===", resp.data);
+
+              self.$store.commit("login", resp.data.data)
+            }
             var path = self.$route.query.redirect;
             self.$router.replace({ path: path == '/' || path == undefined ? '/home' : path });
           })
