@@ -50,19 +50,12 @@ export default {
     login () {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-
           this.loading = true
-
           this.postRequest("/doLogin", this.form).then(resp => {
-            const self = this;
             this.loading = false
-            if (resp.status === 200) {
-              console.log("===", resp.data);
-
-              self.$store.commit("login", resp.data.data)
-            }
-            var path = self.$route.query.redirect;
-            self.$router.replace({ path: path == '/' || path == undefined ? '/home' : path });
+            this.$store.commit("login", resp.data.data)
+            var path = this.$route.query.redirect;
+            this.$router.replace({ path: path == '/' || path == undefined ? '/home' : path });
           })
 
         } else {
@@ -82,6 +75,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* background: url('http://img4.imgtn.bdimg.com/it/u=3210700219,1849066843&fm=26&gp=0.jpg'); */
+  background-size: cover;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
 }
 .login {
   width: 350px;
@@ -90,5 +90,7 @@ export default {
   padding: 0px 30px;
   box-shadow: 0 0 25px #cac6c6;
   border-radius: 3%;
+  background: white;
+  /* background-color: rgba(228, 249, 252, 0.5); */
 }
 </style>

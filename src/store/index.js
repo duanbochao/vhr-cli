@@ -18,8 +18,7 @@ export default new Vuex.Store({
       window.localStorage.setItem("user", JSON.stringify(user))
     },
     initMenu (state, menus) {
-      console.log("menus====>", menus);
-
+      console.log(menus);
       state.routes = menus
     }
   },

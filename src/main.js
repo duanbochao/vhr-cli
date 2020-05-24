@@ -27,25 +27,23 @@ Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
 
-  console.log(to);
 
   if (to.name == "Login") {
     next()
     return
   }
 
-  var name = store.state.user.name;
-  if (name == '未登录') {
+  var name = store.state.user.name
+  if (name === '未登录') {
     if (to.meta.requireAuth || to.name == null) {
       next({ path: '/', query: { redirect: to.path } })
     } else {
-      next();
+      next()
     }
   } else {
     initMenu(router, store);
     next()
   }
-
 
 })
 

@@ -31,7 +31,7 @@
                   <i class="el-icon-menu"></i>
                   <span>{{item.name}}</span>
                 </template>
-                <el-menu-item v-for="(c,index2) in item.children" :index="c.path" :key="index2">{{c.name}}</el-menu-item>
+                <el-menu-item v-for="(c,index2) in item.children" :index="c.path" :key="index2">{{c.path}}</el-menu-item>
               </el-submenu>
             </el-menu>
           </template>
@@ -47,7 +47,7 @@
 export default {
   data () {
     return {
-      c: '/abde'
+
     }
   },
   created () {
